@@ -2,14 +2,15 @@ package ui
 
 import (
 	"flag"
+	"fmt"
 	"html/template"
 	"log"
 	"net/http"
 
-	"github.com/gorilla/websocket"
-	"drtelemetry/telemetry"
 	"github.com/gobuffalo/packr"
-	"fmt"
+	"github.com/gorilla/websocket"
+
+	"github.com/c0deaddict/drtelemetry/telemetry"
 )
 
 var Addr = flag.String("http", "localhost:8080", "http service address")

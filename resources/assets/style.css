@@ -10,12 +10,26 @@ body {
     font-family: 'Squada One', cursive;
 }
 
-.container > div {
-    width: 100%
-}
-
 html, body, .container {
     height: 100%;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 100%;
+    flex: 1;
+}
+
+table.metrics {
+    font-family: monospace;
 }
 
 .stats {
@@ -53,4 +67,8 @@ p#kph-text {
 #pedals {
     position: relative;
     left: 73px;
+}
+
+#metrics tr th:first-child {
+    width: 150px;
 }

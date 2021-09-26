@@ -1,15 +1,15 @@
 package main
 
 import (
-	"drtelemetry/telemetry"
+	"flag"
+	"fmt"
+	"log"
 	"os"
 	"os/signal"
-	"fmt"
-	"time"
-	"flag"
-	"log"
-	"drtelemetry/ui"
 	"syscall"
+
+	"github.com/c0deaddict/drtelemetry/telemetry"
+	"github.com/c0deaddict/drtelemetry/ui"
 )
 
 func main() {
@@ -20,7 +20,7 @@ func main() {
 	flag.Parse()
 	log.SetFlags(0)
 
-	dataChannel, quit := telemetry.RunServer(":10001")
+	dataChannel, quit := telemetry.RunServer()
 	go ui.ListenAndServe(dataChannel)
 
 	c := make(chan os.Signal)
@@ -29,6 +29,5 @@ func main() {
 
 	fmt.Printf("captured %v, stopping profiler and exiting..", sig)
 	close(quit)
-	time.Sleep(2 * time.Second)
 	os.Exit(1)
 }

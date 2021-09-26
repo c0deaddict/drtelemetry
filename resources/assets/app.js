@@ -5,6 +5,7 @@ var kphElement = document.getElementById("kph-text");
 var progressElement = document.getElementById("progress");
 var distanceElement = document.getElementById("distance");
 var rpmGaugeCanvas = document.getElementById('rpm');
+var metricsTable = document.getElementById('metrics');
 
 var rpmGaugeOptions = {
     angle: -0.3, // The span of the rpmGauge arc
@@ -137,10 +138,38 @@ function renderPedalPositions(telemetryData) {
     clutchLine.append(new Date().getTime(), telemetryData.clutchPosition);
 }
 
+function createTableCell(type, text) {
+    var cell = document.createElement(type);
+    cell.appendChild(document.createTextNode(text));
+    return cell;
+}
+
+function renderMetrics(telemetryData) {
+    let keys = Object.keys(telemetryData);
+    keys.sort();
+
+    while (metricsTable.firstChild) {
+        metricsTable.removeChild(metricsTable.firstChild);
+    }
+
+    var header = document.createElement('tr');
+    header.appendChild(createTableCell('th', 'Metric'));
+    header.appendChild(createTableCell('th', 'Value'));
+    metricsTable.appendChild(header);
+
+    for (key in keys) {
+        var row = document.createElement('tr');
+        row.appendChild(createTableCell('td', keys[key]));
+        row.appendChild(createTableCell('td', telemetryData[keys[key]]));
+        metricsTable.appendChild(row);
+    }
+}
+
 function render(telemetryData) {
     renderGauge(telemetryData);
     renderTexts(telemetryData);
     renderPedalPositions(telemetryData);
+    renderMetrics(telemetryData);
 }
 
 function connect(host) {

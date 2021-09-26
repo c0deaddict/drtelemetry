@@ -1,38 +1,50 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <meta charset="utf-8">
     <script src="assets/gauge.min.js"></script>
     <script type="text/javascript" src="assets/smoothie.js"></script>
-{{if .CustomStyle}}
+    {{if .CustomStyle}}
     <link rel="stylesheet" href="custom/{{.CustomStyle}}">
-{{else}}
+    {{else}}
     <link rel="stylesheet" href="assets/style.css">
-{{end}}
-</head>
-<body>
-<div class="container">
-    <div id="gauge">
-        <canvas id="rpm" height="300" width="350"></canvas>
-        <div class="gauge-text">
-            <p id="gear-text">N</p>
-            <div class="kph">
+    {{end}}
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="column">
+          <div id="gauge">
+            <canvas id="rpm" height="300" width="350"></canvas>
+            <div class="gauge-text">
+              <p id="gear-text">N</p>
+              <div class="kph">
                 <p id="kph-text">0</p>
                 <p>KM/H</p>
-            </div>
-            <div class="stats">
+              </div>
+              <div class="stats">
                 <p id="progress">0 %</p>
                 <p id="distance">0.0 km</p>
+              </div>
             </div>
+          </div>
+          <div id="pedals">
+            <canvas id="pedalcanvas" width="200" height="100"></canvas>
+          </div>
         </div>
+        <div class="column">
+          <table id="metrics">
+            <tr>
+              <th>Metric</th>
+              <th>Value</th>
+            </tr>
+          </table>
+        </div>
+      </div>
     </div>
-    <div id="pedals">
-        <canvas id="pedalcanvas" width="200" height="100"></canvas>
-    </div>
-</div>
-<script src="assets/app.js"></script>
-<script>
-    connect("{{.WebsocketHost}}");
-</script>
-</body>
+    <script src="assets/app.js"></script>
+    <script>
+      connect("{{.WebsocketHost}}");
+    </script>
+  </body>
 </html>
